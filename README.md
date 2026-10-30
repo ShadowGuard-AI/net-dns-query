@@ -4,7 +4,7 @@
 
 **Project Description:**
 
-net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool utilizes the socket and requests libraries to interact with the network and perform DNS queries.
+net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool utilizes the Python standard library socket module to resolve hostnames; it has no third-party dependencies.
 
 **Installation:**
 
@@ -26,30 +26,35 @@ net-dns-query is a cybersecurity tool used to perform DNS queries for specific h
 The tool can be used with the following command-line arguments:
 
 ```
-usage: main.py [-h] [-d DOMAIN] [-t TYPE] [-a] [-v]
+usage: main.py [-h] [--type TYPE] [--server SERVER] [--port PORT]
+               [--timeout TIMEOUT] [--retries RETRIES] [--version]
+               hostname
 
-Perform DNS queries for specific hostnames.
+positional arguments:
+  hostname           The hostname to query.
 
-optional arguments:
-  -h, --help          show this help message and exit
-  -d DOMAIN, --domain DOMAIN
-                        Domain name to query (default: google.com)
-  -t TYPE, --type TYPE
-                        Type of DNS query to perform (default: A)
-  -a, --all            Perform all types of DNS queries (A, AAAA, MX, NS, CNAME, SOA)
-  -v, --verbose       Enable verbose output
+options:
+  -h, --help         show this help message and exit
+  --type TYPE        DNS record type (default: A). Note: resolution is performed
+                     with getaddrinfo, so the resolved addresses are returned
+                     regardless of the requested record type.
+  --server SERVER    DNS server IP address (default: system default).
+  --port PORT        DNS server port (default: 53).
+  --timeout TIMEOUT  Query timeout in seconds (default: 5).
+  --retries RETRIES  Number of query retries (default: 3).
+  --version          show program's version number and exit
 ```
 
 **Examples:**
 
-* Perform an A record query for `google.com`:
+* Resolve `localhost`:
    ```
-   python main.py -d google.com
+   python main.py localhost
    ```
 
-* Perform all types of DNS queries for `example.com`:
+* Resolve `example.com` with two retries:
    ```
-   python main.py -d example.com -a
+   python main.py example.com --retries 2
    ```
 
 **Security Warnings and Considerations:**
