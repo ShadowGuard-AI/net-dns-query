@@ -1,2 +1,1 @@
-- argparse>=1.4.0
-- socket>=0.9
+# No third-party dependencies: this tool uses only the Python standard library.
