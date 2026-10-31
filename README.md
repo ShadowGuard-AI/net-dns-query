@@ -4,7 +4,7 @@
 
 **Project Description:**
 
-net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool utilizes the Python standard library socket module to resolve hostnames; it has no third-party dependencies.
+net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool uses only the Python standard library. Without a server option it resolves hostnames with the system resolver. With `--server`, it builds a DNS wire format query and sends it over UDP to the named server and port, then prints the answers returned by that server for the requested record type. Supported record types with `--server` are A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, and TXT.
 
 **Installation:**
 
@@ -35,10 +35,12 @@ positional arguments:
 
 options:
   -h, --help         show this help message and exit
-  --type TYPE        DNS record type (default: A). Note: resolution is performed
-                     with getaddrinfo, so the resolved addresses are returned
+  --type TYPE        DNS record type (default: A). With --server, the query
+                     asks for this record type. Without --server, the system
+                     resolver is used and the returned addresses are returned
                      regardless of the requested record type.
-  --server SERVER    DNS server IP address (default: system default).
+  --server SERVER    DNS server IP address (default: system default). When
+                     given, a DNS query is sent to this server over UDP.
   --port PORT        DNS server port (default: 53).
   --timeout TIMEOUT  Query timeout in seconds (default: 5).
   --retries RETRIES  Number of query retries (default: 3).
@@ -56,6 +58,13 @@ options:
    ```
    python main.py example.com --retries 2
    ```
+
+* Ask a specific DNS server for the AAAA record of `example.com`:
+   ```
+   python main.py example.com --type AAAA --server 1.1.1.1
+   ```
+
+If the named server does not answer, returns an error, or returns no records of the requested type, the tool reports the failure and exits with a non-zero status.
 
 **Security Warnings and Considerations:**
 
