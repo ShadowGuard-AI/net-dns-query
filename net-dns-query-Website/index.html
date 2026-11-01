@@ -82,11 +82,11 @@ footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
       <p class="lede">net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool uses only the Python standard library. Without a server option it resolves hostnames with the syste</p>
       <div class="grid">
         <div class="card pop"><h3>What it is</h3>
-          <p>Net Dns Query: 21 files, 11907 counted
-          lines across SVG 11540, Python 247, Markdown 119. One job, done in the
+          <p>Net Dns Query: 28 files, 12074 counted
+          lines across SVG 11540, Python 247, HTML 167. One job, done in the
           open, in files you can read.</p></div>
         <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>net-dns-query-Visuals/schematic.svg</code> carries the most
+          <p><code>main.py</code> carries the most
           lines. If the project grows, that file is where the growth
           lands first, for better or worse.</p></div>
         <div class="card pop"><h3>The honest gap</h3>
@@ -103,40 +103,35 @@ footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
       
   <section aria-label="real code">
     <h2>The code, as it sits in the repo</h2>
-    <p>From <code>net-dns-query-Visuals/schematic.svg</code>, line 1 on. I did
+    <p>From <code>main.py</code>, line 225 on. I did
     not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;1240&quot; height=&quot;920&quot; viewBox=&quot;0 0 1240 920&quot;&gt;
-&lt;defs&gt;&lt;filter id=&quot;soft&quot; x=&quot;-20%&quot; y=&quot;-20%&quot; width=&quot;140%&quot; height=&quot;140%&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;7&quot;/&gt;&lt;/filter&gt;
-&lt;linearGradient id=&quot;edgeR&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0.35&quot;/&gt;&lt;/linearGradient&gt;
-&lt;linearGradient id=&quot;edgeB&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0.35&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
-&lt;rect width=&quot;1240&quot; height=&quot;920&quot; fill=&quot;#f4f6f8&quot;/&gt;
-&lt;path d=&quot;M 77 630 L 275 753&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;22&quot; stroke-opacity=&quot;0.047&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 68 644 L 267 767&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;12&quot; stroke-opacity=&quot;0.037&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 59 176 L 393 187&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;16&quot; stroke-opacity=&quot;0.067&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 59 187 L 393 199&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;8&quot; stroke-opacity=&quot;0.053&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 887 406 L 1020 715&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;18&quot; stroke-opacity=&quot;0.050&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 875 411 L 1008 720&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;10&quot; stroke-opacity=&quot;0.040&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 434 335 L 264 481&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;20&quot; stroke-opacity=&quot;0.063&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 425 324 L 254 469&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;11&quot; stroke-opacity=&quot;0.050&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 259 374 L 428 442&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;15&quot; stroke-opacity=&quot;0.080&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 255 385 L 424 452&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;8&quot; stroke-opacity=&quot;0.063&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 217 692 L 238 1100&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.059&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 188 694 L 208 1101&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;21&quot; stroke-opacity=&quot;0.046&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 745 559 L 465 710&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.092&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 731 534 L 451 685&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;21&quot; stroke-opacity=&quot;0.073&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 1394 84 L 1055 190&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;22&quot; stroke-opacity=&quot;0.069&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 1389 68 L 1050 174&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;12&quot; stroke-opacity=&quot;0.054&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
-&lt;path d=&quot;M 1086 352 L 760 537&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.072&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;</code></pre>
+    <pre class="code"><code>    raise Exception(f&quot;Failed to resolve {hostname} after {retries} attempts.&quot;)
+
+def main():
+    &quot;&quot;&quot;
+    Main entry point for the DNS query tool.
+    &quot;&quot;&quot;
+    args = setup_argparse()
+    try:
+        results = perform_dns_query(
+            hostname=args.hostname,
+            record_type=args.type,
+            server=args.server,
+            port=args.port,
+            timeout=args.timeout,
+            retries=args.retries
+        )
+        print(f&quot;Resolved addresses for {args.hostname}: {results}&quot;)
+    except Exception as e:
+        logging.error(f&quot;DNS query failed: {e}&quot;)
+        sys.exit(1)
+
+if __name__ == &quot;__main__&quot;:</code></pre>
   </section>
       <section id="files">
         <h2>The files that matter</h2>
         <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>net-dns-query-Visuals/schematic.svg</code></td><td>3293</td></tr>
-        <tr><td><code>net-dns-query-Visuals/product-map.svg</code></td><td>2524</td></tr>
-        <tr><td><code>net-dns-query-Visuals/architecture.svg</code></td><td>2016</td></tr>
-        <tr><td><code>net-dns-query-Visuals/statistics.svg</code></td><td>1496</td></tr>
-        <tr><td><code>net-dns-query-Visuals/flowchart.svg</code></td><td>1256</td></tr>
-        <tr><td><code>net-dns-query-Visuals/data-flow.svg</code></td><td>955</td></tr>
+        <tr><td><code>main.py</code></td><td>247</td></tr>
         </table>
         <p>Names doing the work: <span class="mono">setup_argparse, build_dns_query, parse_dns_name, format_rdata, parse_dns_response, query_dns_server, perform_dns_query, main</span>.</p>
       </section>
