@@ -39,12 +39,14 @@ def setup_argparse():
 
 def build_dns_query(hostname, qtype):
     """Builds a DNS wire format query for hostname and qtype."""
+    # The transaction id is the only thing tying a UDP reply back to this query. UDP gives me no connection, so I generate it here and check it on the way in below.
     txid = random.randint(0, 0xFFFF)
     header = struct.pack(">HHHHHH", txid, 0x0100, 1, 0, 0, 0)
     qname = b""
     for label in hostname.rstrip(".").split("."):
         if not label:
             continue
+        # I encode each label on its own and check the encoded length, not the raw length. A short looking name in another script can pass 63 bytes once it is punycode, and the wire format counts encoded bytes.
         encoded = label.encode("idna")
         if len(encoded) > 63:
             raise ValueError(f"DNS label too long: {label}")
@@ -62,12 +64,14 @@ def parse_dns_name(data, offset):
     while True:
         if offset >= len(data):
             raise ValueError("DNS name runs past the end of the response.")
+        # A hostile or broken server can point a compressed name back at itself. I track every offset I visit so that loop raises here instead of spinning forever on one packet.
         if offset in seen:
             raise ValueError("DNS name compression loop in response.")
         seen.add(offset)
         length = data[offset]
         if length == 0:
             offset += 1
+            # After a jump, the caller still needs the offset just past the original pointer, not past the pointed to name. I only move next_offset the first time, which is the part of DNS compression people usually get wrong.
             if not jumped:
                 next_offset = offset
             break
@@ -119,6 +123,7 @@ def format_rdata(data, offset, rdlength, rtype):
         rname, pos = parse_dns_name(data, pos)
         numbers = struct.unpack(">IIIII", data[pos:pos + 20])
         return f"{mname} {rname} {numbers[0]} {numbers[1]} {numbers[2]} {numbers[3]} {numbers[4]}"
+    # For a record type I do not format, hex is the honest fallback. Guessing at a text shape I do not know would look like an answer and could be completely wrong.
     return rdata.hex()
 
 def parse_dns_response(data, expected_txid, expected_qtype):
@@ -144,6 +149,7 @@ def parse_dns_response(data, expected_txid, expected_qtype):
         offset += 10
         if offset + rdlength > len(data):
             raise ValueError("Truncated DNS record data in response.")
+        # A response can carry CNAMEs and other types on the way to the answer I asked for. I filter by the requested type here, so a CNAME chain alone counts as no records, which matches what query_dns_server promises its caller.
         if rtype == expected_qtype:
             answers.append(format_rdata(data, offset, rdlength, rtype))
         offset += rdlength
@@ -162,6 +168,7 @@ def query_dns_server(hostname, record_type, server, port, timeout):
         raise ValueError(f"Unsupported record type: {record_type}. Supported types: {supported}.")
     qtype = RECORD_TYPES[qtype_name]
     txid, query = build_dns_query(hostname, qtype)
+    # I pick the family from the server string because getaddrinfo would resolve a name here and I want this path to talk only to the server I was given. A colon means the caller handed me an IPv6 literal.
     family = socket.AF_INET6 if ":" in server else socket.AF_INET
     sock = socket.socket(family, socket.SOCK_DGRAM)
     try:
@@ -201,6 +208,7 @@ def perform_dns_query(hostname, record_type="A", server=None, port=53, timeout=5
                 addresses = query_dns_server(hostname, record_type, server, port, timeout)
                 logging.info(f"Query successful for {hostname}. Resolved addresses: {addresses}")
                 return addresses
+            # Without a server this path is a different tool: the system resolver decides everything and the record type argument is ignored. I keep that split explicit because callers are surprised when --type MX still returns addresses here.
             result = socket.getaddrinfo(hostname, None, proto=socket.IPPROTO_TCP)
             addresses = [res[4][0] for res in result if res[0] == socket.AF_INET or res[0] == socket.AF_INET6]
             if not addresses:
@@ -211,6 +219,7 @@ def perform_dns_query(hostname, record_type="A", server=None, port=53, timeout=5
             logging.error(f"DNS query failed for {hostname}: {e}")
         except Exception as e:
             logging.error(f"Unexpected error occurred: {e}")
+        # I retry resolver failures and server failures the same way, which is a tradeoff. A bad hostname will burn all three attempts before it fails, but a flaky UDP reply gets the second chances it needs.
         if attempt < retries - 1:
             logging.info(f"Retrying ({attempt + 2}/{retries})...")
     raise Exception(f"Failed to resolve {hostname} after {retries} attempts.")
