@@ -10,7 +10,7 @@ net-dns-query is a cybersecurity tool used to perform DNS queries for specific h
 
 1. Clone the GitHub repository using the command:
    ```
-   git clone https://github.com/ShadowStrikeHQ/net-dns-query.git
+   git clone https://github.com/ShadowGuard-AI/net-dns-query.git
    ```
 2. Navigate to the project directory:
    ```
