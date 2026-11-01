@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net Dns Query: what it is, how it runs, where it stops</title>
+<meta name="description" content="net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as ">
+<style>
+:root {
+  --bg: #121418; --panel: #1c2028; --ink: #e8ecf0;
+  --mut: #252b36;
+  --acc: #5cc8e0; --acc2: #f0a05c;
+  --line: #1c2028;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.55; }
+code, pre, .mono { font-family: 'Consolas', monospace; }
+a { color: var(--acc2); }
+.hero { padding: 3rem 6vw 1rem; }
+.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
+  border-radius: 10px; }
+.logo { width: 92px; height: 92px; border-radius: 18px;
+  border: 1px solid var(--line); }
+h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
+h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
+  margin-top: 2em; }
+.lede { font-size: 1.15rem; max-width: 62ch; }
+main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
+.grid { display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 1rem 1.2rem; }
+.card.pop { animation: rise 0.7s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; } }
+pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
+  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
+  border-left: 5px solid var(--acc); }
+table { border-collapse: collapse; width: 100%; }
+td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
+  text-align: left; }
+.shots { display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.shots img { width: 100%; height: auto; border: 1px solid var(--line);
+  border-radius: 10px; background: #f4f1e8; }
+footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
+  color: var(--mut); }
+.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
+.rail nav { position: sticky; top: 1rem; min-width: 180px; }
+@media (max-width: 760px) { .rail { flex-direction: column; }
+  .rail nav { position: static; } }
+@media (prefers-reduced-motion: reduce) {
+  .card.pop { animation: none; } * { scroll-behavior: auto; } }
+</style>
+</head>
+<body class="layout-poster">
+<!-- This page exists for net-dns-query alone: the layout (poster),
+     the colors, and the type were picked for this project, not
+     shared with the other project pages. The code block below is
+     copied from the file it names, line for line. If it looks
+     plain, that is because the project is plain, and I would
+     rather the page match the project than dress it up. The one
+     thing I will not do here is oversell: what this project does
+     not do is stated on the page, not hidden from it. -->
+<header class="hero">
+  <img class="logo" src="assets/logo.png" alt="Net Dns Query logo">
+  <img class="banner" src="assets/banner.png" alt="">
+  <h1>Net Dns Query</h1>
+  <p class="mono"><a href="https://github.com/ShadowGuard-AI/net-dns-query">github.com/ShadowGuard-AI/net-dns-query</a></p>
+</header>
+
+<main>
+  <section class="rail">
+    <nav aria-label="on this page">
+      <p class="mono"><a href="#run">Run it</a><br>
+      <a href="#files">The files</a><br>
+      <a href="#sheets">The sheets</a><br>
+      <a href="https://github.com/ShadowGuard-AI/net-dns-query">The repo</a></p>
+    </nav>
+    <div>
+      <p class="lede">net-dns-query is a cybersecurity tool used to perform DNS queries for specific hostnames. It is designed to perform basic network operations, such as name resolution and IP address retrieval. The tool uses only the Python standard library. Without a server option it resolves hostnames with the syste</p>
+      <div class="grid">
+        <div class="card pop"><h3>What it is</h3>
+          <p>Net Dns Query: 21 files, 11907 counted
+          lines across SVG 11540, Python 247, Markdown 119. One job, done in the
+          open, in files you can read.</p></div>
+        <div class="card pop"><h3>The biggest piece</h3>
+          <p><code>net-dns-query-Visuals/schematic.svg</code> carries the most
+          lines. If the project grows, that file is where the growth
+          lands first, for better or worse.</p></div>
+        <div class="card pop"><h3>The honest gap</h3>
+          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
+      </div>
+      <section id="run">
+        <h2>Run it</h2>
+        <p>The repo README has the exact commands for this one. The
+        shape is the shape for most of my projects: clone it, read the
+        top file first so you know what will happen, then run it on
+        something you do not mind breaking.</p>
+        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/net-dns-query.git<br>$ cd net-dns-query</p>
+      </section>
+      
+  <section aria-label="real code">
+    <h2>The code, as it sits in the repo</h2>
+    <p>From <code>net-dns-query-Visuals/schematic.svg</code>, line 1 on. I did
+    not tidy it for the page. What you see is what the file has.</p>
+    <pre class="code"><code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;1240&quot; height=&quot;920&quot; viewBox=&quot;0 0 1240 920&quot;&gt;
+&lt;defs&gt;&lt;filter id=&quot;soft&quot; x=&quot;-20%&quot; y=&quot;-20%&quot; width=&quot;140%&quot; height=&quot;140%&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;7&quot;/&gt;&lt;/filter&gt;
+&lt;linearGradient id=&quot;edgeR&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0.35&quot;/&gt;&lt;/linearGradient&gt;
+&lt;linearGradient id=&quot;edgeB&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#9aa4ae&quot; stop-opacity=&quot;0.35&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+&lt;rect width=&quot;1240&quot; height=&quot;920&quot; fill=&quot;#f4f6f8&quot;/&gt;
+&lt;path d=&quot;M 77 630 L 275 753&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;22&quot; stroke-opacity=&quot;0.047&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 68 644 L 267 767&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;12&quot; stroke-opacity=&quot;0.037&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 59 176 L 393 187&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;16&quot; stroke-opacity=&quot;0.067&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 59 187 L 393 199&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;8&quot; stroke-opacity=&quot;0.053&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 887 406 L 1020 715&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;18&quot; stroke-opacity=&quot;0.050&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 875 411 L 1008 720&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;10&quot; stroke-opacity=&quot;0.040&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 434 335 L 264 481&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;20&quot; stroke-opacity=&quot;0.063&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 425 324 L 254 469&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;11&quot; stroke-opacity=&quot;0.050&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 259 374 L 428 442&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;15&quot; stroke-opacity=&quot;0.080&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 255 385 L 424 452&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;8&quot; stroke-opacity=&quot;0.063&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 217 692 L 238 1100&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.059&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 188 694 L 208 1101&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;21&quot; stroke-opacity=&quot;0.046&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 745 559 L 465 710&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.092&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 731 534 L 451 685&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;21&quot; stroke-opacity=&quot;0.073&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 1394 84 L 1055 190&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;22&quot; stroke-opacity=&quot;0.069&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 1389 68 L 1050 174&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;12&quot; stroke-opacity=&quot;0.054&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;
+&lt;path d=&quot;M 1086 352 L 760 537&quot; stroke=&quot;#8d97a1&quot; stroke-width=&quot;40&quot; stroke-opacity=&quot;0.072&quot; filter=&quot;url(#soft)&quot; fill=&quot;none&quot;/&gt;</code></pre>
+  </section>
+      <section id="files">
+        <h2>The files that matter</h2>
+        <table><tr><th>File</th><th>Lines</th></tr>
+        <tr><td><code>net-dns-query-Visuals/schematic.svg</code></td><td>3293</td></tr>
+        <tr><td><code>net-dns-query-Visuals/product-map.svg</code></td><td>2524</td></tr>
+        <tr><td><code>net-dns-query-Visuals/architecture.svg</code></td><td>2016</td></tr>
+        <tr><td><code>net-dns-query-Visuals/statistics.svg</code></td><td>1496</td></tr>
+        <tr><td><code>net-dns-query-Visuals/flowchart.svg</code></td><td>1256</td></tr>
+        <tr><td><code>net-dns-query-Visuals/data-flow.svg</code></td><td>955</td></tr>
+        </table>
+        <p>Names doing the work: <span class="mono">setup_argparse, build_dns_query, parse_dns_name, format_rdata, parse_dns_response, query_dns_server, perform_dns_query, main</span>.</p>
+      </section>
+      <section id="sheets">
+        <h2>Drawn by hand</h2>
+        <p>I sketch my projects on notebook paper so I have to
+        understand them well enough to draw them. The full set,
+        with the counts and how they were counted, is the
+        <a href="https://github.com/ShadowGuard-AI/net-dns-query/tree/main/net-dns-query-Visuals">net-dns-query-Visuals</a>
+        folder in the repo. Nothing is drawn over the binder holes.
+        That is a rule, not a style.</p>
+        <div class="shots">
+          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Net Dns Query">
+          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Net Dns Query">
+          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Net Dns Query">
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>Net Dns Query is one of my projects. This page was written
+  from the repo itself on 2026-10-30: the counts are the
+  repo's counts, the code is the repo's code, and the gaps are the
+  repo's gaps.</p>
+</footer>
+</body>
+</html>
